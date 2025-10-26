@@ -37,11 +37,11 @@ function Navbar() {
                                     Home
                                 </Link>
                                 <Link
-                                    to="/men"
-                                    className={`text-sm font-medium transition px-6 lg:px-8 py-4 ${isActive('/men') ? 'text-gray-900 font-semibold' : 'text-gray-600 hover:text-teal-700'
+                                    to="/product/1"
+                                    className={`text-sm font-medium transition px-6 lg:px-8 py-4 ${isActive('/product/1') ? 'text-gray-900 font-semibold' : 'text-gray-600 hover:text-teal-700'
                                         }`}
                                 >
-                                    Men
+                                    Product
                                 </Link>
                                 <Link
                                     to="/skin"
@@ -73,7 +73,7 @@ function Navbar() {
                             {/* Left Navigation - Desktop */}
                             <div className="hidden md:flex items-center space-x-6 lg:space-x-8">
                                 <button className="flex items-center text-gray-900 hover:text-teal-700 transition font-medium text-sm lg:text-base">
-                                    Products
+                                    Info
                                     <ChevronDown className="ml-1 w-4 h-4" />
                                 </button>
                                 <button className="flex items-center text-gray-900 hover:text-teal-700 transition font-medium text-sm lg:text-base">
