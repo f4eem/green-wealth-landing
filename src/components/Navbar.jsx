@@ -149,14 +149,14 @@ function Navbar() {
                                     className={`block px-6 py-4 text-base font-medium transition ${isActive('/home') ? 'text-teal-700 bg-teal-50' : 'text-gray-900 hover:bg-gray-50'
                                         }`}
                                 >
-                                    Women
+                                    Home
                                 </Link>
                                 <Link
-                                    to="/men"
+                                    to="/product/1"
                                     className={`block px-6 py-4 text-base font-medium transition ${isActive('/men') ? 'text-teal-700 bg-teal-50' : 'text-gray-900 hover:bg-gray-50'
                                         }`}
                                 >
-                                    Men
+                                    Product
                                 </Link>
                                 <Link
                                     to="/skin"

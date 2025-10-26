@@ -11,7 +11,7 @@ function Footer() {
         <div>
           <h4 className="font-semibold mb-4">Products</h4>
           <div className="space-y-2 text-gray-400">
-            <div>Women</div>
+            <div>Product</div>
             <div>Men</div>
             <div>Postpartum</div>
             <div>Plant-Based</div>
