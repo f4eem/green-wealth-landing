@@ -3,10 +3,10 @@ import { Canvas, useFrame } from '@react-three/fiber';
 import { PerspectiveCamera, Environment, Float, MeshTransmissionMaterial } from '@react-three/drei';
 import { motion, useScroll, useTransform, AnimatePresence } from 'framer-motion';
 import * as THREE from 'three';
-import { ChevronRight, Star, Check, ShoppingCart, Heart, Share2, Minus, Plus } from 'lucide-react';
-import Navbar from '../components/Navbar';
+import { ChevronRight, Star, Check, ShoppingCart, Heart, Share2, Minus, Plus, Badge, Play } from 'lucide-react';
 import Footer from '../components/Footer';
-
+import Navbar from '../components/NavBar';
+import { Card } from '../components/Card';
 // Neural Network Background Component
 function NeuralNetwork({ intensity = 1 }) {
     const pointsRef = useRef();
@@ -810,6 +810,13 @@ function ProductPage() {
         }
     ];
 
+    const images = [
+        { src: "/images/ingredients-culture.jpg", alt: "Organic Fermented Ingredients", zoomable: true },
+        { src: "/images/video-testimonial-thumb.jpg", alt: "Video Testimonial", video: true },
+        { src: "/images/clinical-stats.jpg", alt: "Clinical Research Results", zoomable: true },
+        { src: "/images/certification-badge.jpg", alt: "NSF Certified", zoomable: true },
+    ];
+
     const plans = [
         {
             id: 'subscribe',
@@ -855,119 +862,190 @@ function ProductPage() {
                 {/* Foreground Content */}
                 <div className="relative z-10 min-h-screen flex items-center">
                     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
-                        <div className="grid lg:grid-cols-2 gap-12 items-center">
+                        <div className="grid mt-50 lg:grid-cols-2 gap-12 items-center">
 
-                            {/* Left - Text Content */}
-                            <motion.div
-                                style={{ opacity: heroTextOpacity, y: heroTextY }}
-                                className="space-y-8"
-                            >
-                                <motion.div
-                                    initial={{ opacity: 0, y: 20 }}
-                                    animate={{ opacity: 1, y: 0 }}
-                                    transition={{ duration: 0.6, delay: 0.2 }}
-                                >
-                                    <div className="inline-flex items-center gap-2 bg-blue-100/80 backdrop-blur-sm border border-blue-200 text-blue-700 px-4 py-2 rounded-full text-sm font-semibold">
-                                        <div className="w-2 h-2 bg-blue-500 rounded-full animate-pulse"></div>
-                                        Clinically Proven Men's Formula
-                                    </div>
-                                </motion.div>
+                            <div className="sticky top-24 animate-fade-in">
+                                <div className="relative bg-sand/50 rounded-2xl p-8 lg:p-12">
+                                    <Badge className="absolute top-4 left-4 bg-accent text-accent-foreground">
+                                        #1 Dermatologist Recommended
+                                    </Badge>
+                                    <img
+                                        src='/images/product.jpg'
+                                        alt="Floradyle Essence"
+                                        className="w-full max-w-md mx-auto hover:scale-105 transition-transform duration-500"
+                                    />
+                                </div>
 
-                                <motion.div
-                                    initial={{ opacity: 0, y: 30 }}
-                                    animate={{ opacity: 1, y: 0 }}
-                                    transition={{ duration: 0.8, delay: 0.4 }}
-                                >
-                                    <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold text-gray-900 leading-tight">
-                                        Hair Wellness
-                                        <br />
-                                        <span className="bg-gradient-to-r from-blue-600 to-cyan-600 bg-clip-text text-transparent">
-                                            for Men
-                                        </span>
-                                        <br />
-                                        <span className="text-4xl md:text-5xl text-gray-600">— From Within</span>
-                                    </h1>
-                                </motion.div>
-
-                                <motion.p
-                                    initial={{ opacity: 0, y: 30 }}
-                                    animate={{ opacity: 1, y: 0 }}
-                                    transition={{ duration: 0.8, delay: 0.6 }}
-                                    className="text-xl md:text-2xl text-gray-600 leading-relaxed max-w-xl"
-                                >
-                                    Scientifically formulated to target thinning hair, DHT, and stress —
-                                    promoting stronger, thicker growth naturally.
-                                </motion.p>
-
-                                <motion.div
-                                    initial={{ opacity: 0, y: 30 }}
-                                    animate={{ opacity: 1, y: 0 }}
-                                    transition={{ duration: 0.8, delay: 0.8 }}
-                                    className="flex flex-wrap gap-4"
-                                >
-                                    {['Drug-Free', 'Clinically Tested', 'Physician Formulated'].map((benefit, idx) => (
-                                        <div
-                                            key={idx}
-                                            className="flex items-center gap-2 bg-white/70 backdrop-blur-sm border border-gray-200 px-4 py-2 rounded-full"
+                                {/* Image Grid */}
+                                <div className="grid grid-cols-2 gap-4">
+                                    {images.map((image, index) => (
+                                        <Card
+                                            key={index}
+                                            className="relative group cursor-pointer overflow-hidden border-2 hover:border-accent transition-all duration-300 hover:shadow-[var(--shadow-medium)]"
+                                            onClick={() => {
+                                                if (image.video) {
+                                                    setShowVideo(true);
+                                                } else if (image.zoomable) {
+                                                    setSelectedImage(image.src);
+                                                }
+                                            }}
                                         >
-                                            <div className="w-2 h-2 bg-green-500 rounded-full"></div>
-                                            <span className="text-sm font-medium text-gray-700">{benefit}</span>
-                                        </div>
+                                            <img
+                                                src={image.src}
+                                                alt={image.alt}
+                                                className="w-full h-48 object-cover group-hover:scale-110 transition-transform duration-500"
+                                            />
+                                            {image.video && (
+                                                <div className="absolute inset-0 flex items-center justify-center bg-black/30 group-hover:bg-black/40 transition-colors">
+                                                    <div className="w-16 h-16 rounded-full bg-white/90 flex items-center justify-center group-hover:scale-110 transition-transform">
+                                                        <Play className="w-8 h-8 text-primary ml-1" />
+                                                    </div>
+                                                </div>
+                                            )}
+                                            <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/60 to-transparent p-4">
+                                                <p className="text-white text-sm font-medium">{image.alt}</p>
+                                            </div>
+                                        </Card>
                                     ))}
-                                </motion.div>
+                                </div>
 
-                                <motion.div
-                                    initial={{ opacity: 0, y: 30 }}
-                                    animate={{ opacity: 1, y: 0 }}
-                                    transition={{ duration: 0.8, delay: 1 }}
-                                    className="flex flex-wrap gap-4"
-                                >
-                                    <motion.button
-                                        whileHover={{ scale: 1.05, boxShadow: "0 20px 40px rgba(59, 130, 246, 0.3)" }}
-                                        whileTap={{ scale: 0.95 }}
-                                        className="bg-gradient-to-r from-blue-600 to-cyan-600 text-white px-8 py-4 rounded-full text-lg font-semibold shadow-xl flex items-center gap-2 group"
-                                    >
-                                        Shop Now
-                                        <ChevronRight className="w-5 h-5 group-hover:translate-x-1 transition" />
-                                    </motion.button>
+                            </div>
 
-                                    <motion.button
-                                        whileHover={{ scale: 1.05 }}
-                                        whileTap={{ scale: 0.95 }}
-                                        className="bg-white/70 backdrop-blur-sm border-2 border-gray-300 text-gray-900 px-8 py-4 rounded-full text-lg font-semibold hover:bg-white transition flex items-center gap-2"
-                                    >
-                                        See the Science
-                                        <ChevronRight className="w-5 h-5" />
-                                    </motion.button>
-                                </motion.div>
-
-                                <motion.div
-                                    initial={{ opacity: 0 }}
-                                    animate={{ opacity: 1 }}
-                                    transition={{ duration: 0.8, delay: 1.2 }}
-                                    className="flex items-center gap-6 pt-4"
-                                >
-                                    <div className="flex items-center gap-2">
-                                        <div className="flex -space-x-2">
-                                            {[1, 2, 3, 4].map((i) => (
-                                                <div
-                                                    key={i}
-                                                    className="w-8 h-8 rounded-full bg-gradient-to-br from-blue-400 to-cyan-400 border-2 border-white"
-                                                />
+                            {/* Right Column - Image Grid */}
+                            <div className="space-y-6 animate-fade-in" style={{ animationDelay: "0.2s" }}>
+                                <div>
+                                    <h1 className="text-4xl lg:text-5xl font-bold text-foreground mb-4">
+                                        Floradyle Essence
+                                    </h1>
+                                    <p className="text-xl text-muted-foreground mb-6">
+                                        Our daily hair growth supplement for men with shedding and decreased scalp coverage who want to take a proactive approach to hair thinning. Our patented technology visibly improves hair growth and thickness by multi-targeting root causes like hormone, stress, and nutrition—with 100% drug-free ingredients that don't compromise sexual performance                                    </p>
+                                    <div className="flex items-center gap-4 mb-8">
+                                        <div className="flex">
+                                            {[...Array(5)].map((_, i) => (
+                                                <svg key={i} className="w-5 h-5 fill-[hsl(var(--accent))]" viewBox="0 0 20 20">
+                                                    <path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z" />
+                                                </svg>
                                             ))}
                                         </div>
-                                        <span className="text-sm text-gray-600 font-medium">50,000+ men trust us</span>
+                                        <span className="text-sm text-muted-foreground">4.8 (2,847 reviews)</span>
                                     </div>
-                                    <div className="h-6 w-px bg-gray-300"></div>
-                                    <div className="flex items-center gap-1">
-                                        {[...Array(5)].map((_, i) => (
-                                            <Star key={i} className="w-5 h-5 fill-yellow-400 text-yellow-400" />
-                                        ))}
-                                        <span className="ml-2 text-sm text-gray-600 font-medium">4.8/5</span>
+                                </div>
+                                <motion.div
+                                    initial={{ opacity: 0, y: 30 }}
+                                    whileInView={{ opacity: 1, y: 0 }}
+                                    viewport={{ once: true }}
+                                    className="space-y-6 lg:sticky lg:top-32"
+                                >
+                                    <h3 className="text-lg font-semibold text-gray-900">Choose Your Plan</h3>
+                                    {plans.map((plan) => (
+                                        <motion.div
+                                            key={plan.id}
+                                            whileHover={{ scale: 1.02 }}
+                                            onClick={() => setSelectedPlan(plan.id)}
+                                            className={`relative p-6 rounded-2xl border-2 cursor-pointer transition ${selectedPlan === plan.id
+                                                ? 'border-blue-600 bg-blue-50'
+                                                : 'border-gray-200 bg-white hover:border-gray-300'
+                                                }`}
+                                        >
+                                            {plan.badge && (
+                                                <div className="absolute -top-3 left-6 bg-blue-600 text-white text-xs font-bold px-3 py-1 rounded-full">
+                                                    {plan.badge}
+                                                </div>
+                                            )}
+
+                                            <div className="flex items-center justify-between">
+                                                <div className="flex-1">
+                                                    <div className="flex items-center gap-3 mb-2">
+                                                        <div className={`w-5 h-5 rounded-full border-2 flex items-center justify-center ${selectedPlan === plan.id ? 'border-blue-600' : 'border-gray-300'
+                                                            }`}>
+                                                            {selectedPlan === plan.id && (
+                                                                <div className="w-3 h-3 rounded-full bg-blue-600"></div>
+                                                            )}
+                                                        </div>
+                                                        <h4 className="text-lg font-bold text-gray-900">{plan.name}</h4>
+                                                    </div>
+                                                    <p className="text-sm text-gray-600 ml-8">{plan.delivery}</p>
+                                                </div>
+
+                                                <div className="text-right">
+                                                    <div className="text-3xl font-bold text-gray-900">{plan.price}</div>
+                                                    {plan.originalPrice && (
+                                                        <div className="text-sm text-gray-500 line-through">{plan.originalPrice}</div>
+                                                    )}
+                                                    {plan.savings && (
+                                                        <div className="text-sm text-green-600 font-semibold">{plan.savings}</div>
+                                                    )}
+                                                </div>
+                                            </div>
+                                        </motion.div>
+                                    ))}
+
+                                    <div className="flex items-center gap-4">
+                                        <span className="text-gray-700 font-medium">Quantity:</span>
+                                        <div className="flex items-center gap-3">
+                                            <button
+                                                onClick={() => setQuantity(Math.max(1, quantity - 1))}
+                                                className="w-10 h-10 rounded-full border-2 border-gray-300 flex items-center justify-center hover:border-blue-600 transition"
+                                            >
+                                                <Minus className="w-4 h-4" />
+                                            </button>
+                                            <span className="text-xl font-semibold w-12 text-center">{quantity}</span>
+                                            <button
+                                                onClick={() => setQuantity(quantity + 1)}
+                                                className="w-10 h-10 rounded-full border-2 border-gray-300 flex items-center justify-center hover:border-blue-600 transition"
+                                            >
+                                                <Plus className="w-4 h-4" />
+                                            </button>
+                                        </div>
+                                    </div>
+
+                                    <motion.button
+                                        whileHover={{ scale: 1.02 }}
+                                        whileTap={{ scale: 0.98 }}
+                                        className="w-full bg-blue-600 text-white py-4 rounded-xl text-lg font-semibold hover:bg-blue-700 transition flex items-center justify-center gap-2"
+                                    >
+                                        <ShoppingCart className="w-5 h-5" />
+                                        Add to Cart - ${selectedPlan === 'subscribe' ? '79' : '88'}
+                                    </motion.button>
+
+                                    <div className="flex gap-3">
+                                        <motion.button
+                                            whileHover={{ scale: 1.05 }}
+                                            whileTap={{ scale: 0.95 }}
+                                            className="flex-1 border-2 border-gray-300 py-3 rounded-xl font-semibold hover:border-gray-400 transition flex items-center justify-center gap-2"
+                                        >
+                                            <Heart className="w-5 h-5" />
+                                            Save
+                                        </motion.button>
+                                        <motion.button
+                                            whileHover={{ scale: 1.05 }}
+                                            whileTap={{ scale: 0.95 }}
+                                            className="flex-1 border-2 border-gray-300 py-3 rounded-xl font-semibold hover:border-gray-400 transition flex items-center justify-center gap-2"
+                                        >
+                                            <Share2 className="w-5 h-5" />
+                                            Share
+                                        </motion.button>
+                                    </div>
+
+                                    <div className="grid grid-cols-3 gap-4 pt-6 border-t">
+                                        <div className="text-center">
+                                            <div className="text-2xl mb-1">🚚</div>
+                                            <div className="text-sm font-medium text-gray-900">Free Shipping</div>
+                                            <div className="text-xs text-gray-600">On all orders</div>
+                                        </div>
+                                        <div className="text-center">
+                                            <div className="text-2xl mb-1">✅</div>
+                                            <div className="text-sm font-medium text-gray-900">90-Day Guarantee</div>
+                                            <div className="text-xs text-gray-600">Money back</div>
+                                        </div>
+                                        <div className="text-center">
+                                            <div className="text-2xl mb-1">🔬</div>
+                                            <div className="text-sm font-medium text-gray-900">Clinically Tested</div>
+                                            <div className="text-xs text-gray-600">Proven results</div>
+                                        </div>
                                     </div>
                                 </motion.div>
-                            </motion.div>
-
+                            </div>
                             <div className="hidden lg:block"></div>
                         </div>
                     </div>
@@ -1026,13 +1104,13 @@ function ProductPage() {
                 </motion.div>
 
                 <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-white to-transparent z-10"></div>
-            </section>
+            </section >
 
             {/* Technology Scroll Section */}
-            <TechnologyScrollSection />
+            < TechnologyScrollSection />
 
             {/* Product Details Section */}
-            <section className="relative z-10 py-20 px-4 bg-white">
+            < section className="relative z-10 py-20 px-4 bg-white" >
                 <div className="max-w-7xl mx-auto">
                     <div className="grid lg:grid-cols-2 gap-12 items-start">
 
@@ -1094,8 +1172,8 @@ function ProductPage() {
                                     whileHover={{ scale: 1.02 }}
                                     onClick={() => setSelectedPlan(plan.id)}
                                     className={`relative p-6 rounded-2xl border-2 cursor-pointer transition ${selectedPlan === plan.id
-                                            ? 'border-blue-600 bg-blue-50'
-                                            : 'border-gray-200 bg-white hover:border-gray-300'
+                                        ? 'border-blue-600 bg-blue-50'
+                                        : 'border-gray-200 bg-white hover:border-gray-300'
                                         }`}
                                 >
                                     {plan.badge && (
@@ -1198,10 +1276,10 @@ function ProductPage() {
                         </motion.div>
                     </div>
                 </div>
-            </section>
+            </section >
 
             {/* Ingredients Section - Scroll Activated */}
-            <section className="py-20 px-4 bg-gradient-to-br from-slate-900 to-slate-800 text-white">
+            < section className="py-20 px-4 bg-gradient-to-br from-slate-900 to-slate-800 text-white" >
                 <div className="max-w-7xl mx-auto">
                     <motion.div
                         initial={{ opacity: 0, y: 30 }}
@@ -1229,8 +1307,8 @@ function ProductPage() {
                                     transition={{ delay: idx * 0.1 }}
                                     onMouseEnter={() => setActiveIngredient(idx)}
                                     className={`p-6 rounded-2xl cursor-pointer transition ${activeIngredient === idx
-                                            ? 'bg-white/10 scale-105'
-                                            : 'bg-white/5 hover:bg-white/8'
+                                        ? 'bg-white/10 scale-105'
+                                        : 'bg-white/5 hover:bg-white/8'
                                         }`}
                                 >
                                     <div className="flex items-start gap-4">
@@ -1277,10 +1355,10 @@ function ProductPage() {
                         </motion.div>
                     </div>
                 </div>
-            </section>
+            </section >
 
             {/* CTA Section */}
-            <section className="py-20 px-4 bg-gradient-to-r from-blue-600 to-purple-600 text-white">
+            < section className="py-20 px-4 bg-gradient-to-r from-blue-600 to-purple-600 text-white" >
                 <motion.div
                     initial={{ opacity: 0, y: 30 }}
                     whileInView={{ opacity: 1, y: 0 }}
@@ -1304,10 +1382,10 @@ function ProductPage() {
                     </motion.button>
                     <p className="mt-6 opacity-75">Free shipping • 90-day guarantee • Cancel anytime</p>
                 </motion.div>
-            </section>
+            </section >
 
             <Footer />
-        </div>
+        </div >
     );
 }
 
