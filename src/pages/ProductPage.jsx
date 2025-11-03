@@ -5,7 +5,7 @@ import { motion, useScroll, useTransform, AnimatePresence } from 'framer-motion'
 import * as THREE from 'three';
 import { ChevronRight, Star, Check, ShoppingCart, Heart, Share2, Minus, Plus, Badge, Play } from 'lucide-react';
 import Footer from '../components/Footer';
-import Navbar from '../components/NavBar';
+import Navbar from '../components/Navbar';
 import { Card } from '../components/Card';
 // Neural Network Background Component
 function NeuralNetwork({ intensity = 1 }) {
