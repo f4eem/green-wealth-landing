@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { ChevronRight, Check, Star } from 'lucide-react';
-import Navbar from '../components/NavBar';
+import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 
 function Men() {
